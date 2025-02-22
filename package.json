@@ -22,8 +22,8 @@
     "@radix-ui/react-separator": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-toast": "^1.2.6",
+    "@tailwindcss/postcss": "^4.0.8",
     "@tanstack/react-query": "^4.36.1",
-    "autoprefixer": "10.4.14",
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -43,7 +43,7 @@
     "react-hook-form": "^7.54.2",
     "string-similarity": "^4.0.4",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss": "3.3.3",
+    "tailwindcss": "4.0.8",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6",
     "zod": "^3.24.2"

@@ -149,7 +149,7 @@ const OpenEnded = ({ game }: Props) => {
               {game.questions.length}
             </div>
           </CardTitle>
-          <CardDescription className="flex-grow text-lg">
+          <CardDescription className="grow text-lg">
             {currentQuestion?.question}
           </CardDescription>
         </CardHeader>
