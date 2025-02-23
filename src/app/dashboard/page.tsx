@@ -3,9 +3,9 @@ import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
 import RecentActivityCard from "@/components/dashboard/RecentActivityCard";
-import { getAuthSession } from "@/lib/nextauth";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import React from "react";
 
 type Props = {};
 
@@ -15,7 +15,10 @@ export const metadata = {
 };
 
 const Dasboard = async (props: Props) => {
-  const session = await getAuthSession();
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
   if (!session?.user) {
     redirect("/");
   }

@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
 import { Button } from "./ui/button";
-import { signIn } from "next-auth/react";
+import { signIn } from "@/lib/auth-client";
 
 type Props = { text: string };
 
@@ -9,7 +8,7 @@ const SignInButton = ({ text }: Props) => {
   return (
     <Button
       onClick={() => {
-        signIn("google").catch(console.error);
+        signIn.social({ provider: "google" }).catch(console.error);
       }}
     >
       {text}

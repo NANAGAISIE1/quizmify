@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,12 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import WordCloud from "../WordCloud";
-import { prisma } from "@/lib/db";
+import { db } from "@/lib/db";
 
 type Props = {};
 
 const HotTopicsCard = async (props: Props) => {
-  const topics = await prisma.topic_count.findMany({});
+  const topics = await db.query.topicCounts.findMany({});
   const formattedTopics = topics.map((topic) => {
     return {
       text: topic.topic,

@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,8 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Github, HelpCircle, Youtube } from "lucide-react";
-import Link from "next/link";
+import { HelpCircle } from "lucide-react";
 import Image from "next/image";
 
 type Props = {};
@@ -54,7 +52,7 @@ const DetailsDialog = (props: Props) => {
               harnessing the immense potential of artificial intelligence.
             </p>
             <hr />
-            <p className="my-2 font-semibold">
+            <div className="my-2 font-semibold">
               <h4 className="text-base font-semibold">Built with</h4>
               <div className="grid justify-around grid-cols-4 mt-2 gap-y-3">
                 <div className="flex items-center gap-2">
@@ -131,7 +129,7 @@ const DetailsDialog = (props: Props) => {
                   <span className="">TypeScript</span>
                 </div>
               </div>
-            </p>
+            </div>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

@@ -1,8 +1,9 @@
-import { prisma } from "@/lib/db";
 import { Clock, CopyCheck, Edit2 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import MCQCounter from "./MCQCounter";
+import { db } from "@/lib/db";
+import { session } from "@/db/auth-schema";
+import { desc } from "drizzle-orm";
+import { games as gameSchema } from "@/db/schema";
 
 type Props = {
   limit: number;
@@ -10,15 +11,14 @@ type Props = {
 };
 
 const HistoryComponent = async ({ limit, userId }: Props) => {
-  const games = await prisma.game.findMany({
-    take: limit,
-    where: {
-      userId,
+  const games = await db.query.games.findMany({
+    where(fields, operators) {
+      return operators.eq(fields.userId, session.userId);
     },
-    orderBy: {
-      timeStarted: "desc",
-    },
+    limit: limit,
+    orderBy: [desc(gameSchema.timeStarted)],
   });
+
   return (
     <div className="space-y-8">
       {games.map((game) => {

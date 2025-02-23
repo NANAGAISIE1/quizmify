@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,23 +6,36 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import HistoryComponent from "../HistoryComponent";
-import { prisma } from "@/lib/db";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { db } from "@/lib/db";
 
 type Props = {};
 
 const RecentActivityCard = async (props: Props) => {
-  const session = await getAuthSession();
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
   if (!session?.user) {
     return redirect("/");
   }
-  const games_count = await prisma.game.count({
-    where: {
-      userId: session.user.id,
+  // const games_count = await db.game.count({
+  //   where: {
+  //     userId: session.user.id,
+  //   },
+  // });
+
+  const games = await db.query.games.findMany({
+    where(fields, operators) {
+      return operators.eq(fields.userId, session.user.id);
     },
   });
+
+  const games_count = games.length;
+
   return (
     <Card className="col-span-4 lg:col-span-3">
       <CardHeader>

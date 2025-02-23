@@ -1,7 +1,4 @@
 "use client";
-
-import type { User } from "next-auth";
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
+import { User } from "better-auth";
+import { signOut } from "@/lib/auth-client";
 
 type Props = {
   user: Pick<User, "name" | "image" | "email">;
