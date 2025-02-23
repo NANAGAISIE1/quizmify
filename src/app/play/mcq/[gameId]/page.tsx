@@ -1,8 +1,10 @@
 import MCQ from "@/components/MCQ";
-import { prisma } from "@/lib/db";
-import { getAuthSession } from "@/lib/nextauth";
+import { games } from "@/db/schema";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import React from "react";
 
 type Props = {
   params: {
@@ -11,18 +13,18 @@ type Props = {
 };
 
 const MCQPage = async ({ params: { gameId } }: Props) => {
-  const session = await getAuthSession();
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
   if (!session?.user) {
     return redirect("/");
   }
 
-  const game = await prisma.game.findUnique({
-    where: {
-      id: gameId,
-    },
-    include: {
+  const game = await db.query.games.findFirst({
+    where: eq(games.id, gameId),
+    with: {
       questions: {
-        select: {
+        columns: {
           id: true,
           question: true,
           options: true,
